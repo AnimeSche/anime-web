@@ -1,0 +1,21 @@
+<!-- switcher.component.html -->
+<div class="flex space-x-4">
+  <button (click)="currentComponent = 'all'" class="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+    <fa-icon [icon]="allIcon" class="text-lg"></fa-icon>
+  </button>
+  <button (click)="currentComponent = 'watched'" class="flex items-center justify-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">
+    <fa-icon [icon]="watched" class="text-lg"></fa-icon>
+  </button>
+  <button (click)="currentComponent = 'watching'" class="flex items-center justify-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">
+    <fa-icon [icon]="watching" class="text-lg"></fa-icon>
+  </button>
+  <button (click)="currentComponent = 'custom'" class="flex items-center justify-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">
+    <fa-icon [icon]="bookmark" class="text-lg"></fa-icon>
+  </button>
+</div>
+
+<ng-container [ngSwitch]="currentComponent">
+  <app-table *ngSwitchCase="'all'" [items]="data"></app-table>
+  <app-table *ngSwitchCase="'watched'" [items]="data"></app-table>
+  <!-- Додайте інші компоненти за потребою -->
+</ng-container>

@@ -1,0 +1,36 @@
+<header class="shadow-sm py-2 px-8">
+  <div class="container mx-auto grid grid-cols-2 gap-5 justify-between py-4">
+    <button class="flex" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page"
+            *ngIf="isLoggedIn; else logout">
+      <fa-icon [icon]="profileIcon" class="text-gray-800"></fa-icon>
+    </button>
+
+    <ng-template #logout>
+      <button class="flex" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <fa-icon [icon]="logoutIcon" class="text-gray-800"></fa-icon>
+      </button>
+    </ng-template>
+
+    <nav *ngIf="isOpenFolder; else isOpen" class="justify-self-center flex">
+      <ul class="flex gap-5 items-end">
+        <li class="text-white/50">
+          <button class="flex" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page"
+                  (click)="isOpenFolder=false">
+            <fa-icon [icon]="closedIcon" class="text-gray-800" ></fa-icon>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <ng-template #isOpen>
+      <ul class="flex gap-5 items-center ml-auto">
+        <li class="text-white/50">
+          <button class="flex" routerLink="/upload" routerLinkActive="active"
+                  (click)="isOpenFolder=true">
+            <fa-icon [icon]="openIcon" class="text-gray-800" ></fa-icon>
+          </button>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+</header>
