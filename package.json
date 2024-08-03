@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-github": "ng build --configuration production --base-href 'https://AnimeSche.github.io/anime-web'",
+    "build-github": "ng build --configuration production --base-href /anime-web/",
     "deploy-github": "npx angular-cli-ghpages --dir=dist/web"
   },
   "private": true,
