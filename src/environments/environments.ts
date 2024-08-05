@@ -1,6 +1,6 @@
 const host = location.protocol + '//' + location.host;
 
-const backendUrl = getUrl(true)
+const backendUrl = getUrl(false)
 function getUrl(local: boolean) {
   if (local) {
     return 'http://localhost:8000'
