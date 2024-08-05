@@ -24,3 +24,13 @@ export class Tools {
         return defaultValue
     }
 }
+
+export class AnimeFeatch {
+    static parse(html: string) {
+        const template = document.createElement('template');
+        template.innerHTML = html.trim();
+        const doc = template.content;
+        const def_list = doc.querySelectorAll('.g_definitionlist')
+        console.log(def_list)
+    }
+}

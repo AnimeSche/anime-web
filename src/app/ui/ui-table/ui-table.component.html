@@ -1,0 +1,49 @@
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <app-ui-pagination [totalPages]="totalPages" [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)"></app-ui-pagination>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-white-300 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">Icon</th>
+                <ng-container *ngFor="let key of objectKeys(displayedColumns)">
+                    <th *ngIf="displayedColumns[key]" scope="col" class="py-3 px-6">
+                        {{ getValue(rows, key) }}
+                    </th>
+                </ng-container>
+                <th scope="col" class="py-3 px-6">Buttons</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let item of items">
+                <td class="py-4 px-6">
+                    <div class="relative group">
+                        <img src="data:image/jpg;base64,{{ item.image }}"
+                            class="w-8 h-8 rounded-full opacity-50 hover:opacity-100"
+                            (click)="UiModalComponent.openModal('image', item, item.image)">
+                    </div>
+                </td>
+                <ng-container *ngFor="let key of objectKeys(displayedColumns)">
+                    <td *ngIf="displayedColumns[key]" class="py-4 px-6">
+                        {{ getValue(item, key) }}
+                    </td>
+                </ng-container>
+                <td class="py-4 px-6">
+                    <div class="flex space-x-1">
+                        <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded"
+                            (click)="UiModalComponent.openModal('edit', item, '')">
+                            <fa-icon [icon]="editIcon" class="text-lg text-white"></fa-icon>
+                        </button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                            (click)="deleteItem(item)">
+                            <fa-icon [icon]="deleteIcon" class="text-lg text-white"></fa-icon>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<app-ui-modal #UiModalComponent></app-ui-modal>

@@ -7,25 +7,7 @@
     Додати через url адресу
   </button>
 </div>
-<!-- Кнопка для показу/приховування налаштувань стовпців -->
-<div class="p-4">
-  <button (click)="toggleColumnSettings()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-    {{ showColumnSettings ? 'Приховати налаштування стовпців' : 'Показати налаштування стовпців' }}
-  </button>
-</div>
 
-<!-- Налаштування стовпців (видиме тільки коли showColumnSettings == true) -->
-<div class="p-4" *ngIf="showColumnSettings">
-  <h3 class="text-lg font-medium leading-6 text-gray-900">Вибір стовпців</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div *ngFor="let key of objectKeys(displayedColumns)">
-      <label class="inline-flex items-center">
-        <input type="checkbox" [(ngModel)]="displayedColumns[key]" class="form-checkbox">
-        <span class="ml-2">{{ key }}</span>
-      </label>
-    </div>
-  </div>
-</div>
 
 <!-- Таблиця -->
 <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
