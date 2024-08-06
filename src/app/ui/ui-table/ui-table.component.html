@@ -24,9 +24,21 @@
                 </td>
                 <ng-container *ngFor="let key of objectKeys(displayedColumns)">
                     <td *ngIf="displayedColumns[key]" class="py-4 px-6">
-                        {{ getValue(item, key) }}
+                        <ng-container *ngIf="key === 'tags'; else defaultCell">
+                            <div class="flex flex-wrap gap-2">
+                                <span *ngFor="let tag of getValue(item, key)"
+                                    [style.background-color]="getRandomColor()"
+                                    class="px-2 py-1 rounded text-white text-sm">
+                                    {{ tag }}
+                                </span>
+                            </div>
+                        </ng-container>
+                        <ng-template #defaultCell>
+                            {{ getValue(item, key) }}
+                        </ng-template>
                     </td>
                 </ng-container>
+
                 <td class="py-4 px-6">
                     <div class="flex space-x-1">
                         <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded"
