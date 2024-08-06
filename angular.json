@@ -13,9 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "docs",
+            "outputPath": "dist/web",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "baseHref": "/anime-web/",
             "polyfills": [
               "zone.js"
             ],
