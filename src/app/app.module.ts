@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './ui/ui-table/app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -28,6 +28,9 @@ import { LoginService } from './services/auth.service';
 import { AnimeService } from './services/anime.services';
 import { UserComponent } from './pages/user/user.component';
 import { UiPaginationComponent } from './ui/ui-pagination/ui-pagination.component';
+import { DateFilterPipe } from './pipes/dateFilterPipe.pipe';
+import { AnimeListComponent } from './pages/anime-list/anime-list.component';
+import { CalendarComponent } from './pages/calendar/calendar.component'
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { UiPaginationComponent } from './ui/ui-pagination/ui-pagination.componen
     BounceOnHoverDirective,
     FadeOnHoverDirective,
     UserComponent,
-    UiPaginationComponent
+    UiPaginationComponent,
+    DateFilterPipe,
+    AnimeListComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

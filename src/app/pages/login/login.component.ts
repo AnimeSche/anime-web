@@ -61,7 +61,7 @@ export class LoginComponent {
         this.sessionService.setCurrentUser(response.user);
         this.sessionService.setToken(response.auth_token);
         settings.isLoggedIn = true;
-        this.router.navigate(['/home']).finally(() => { });
+        this.router.navigate(['']).finally(() => { });
       }
     });
   }

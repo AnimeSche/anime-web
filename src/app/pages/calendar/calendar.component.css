@@ -1,0 +1,12 @@
+.calendar-container {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.calendar-cell {
+    height: 120px;
+}
+
+.calendar-cell img {
+    max-height: 40px;
+}

@@ -35,7 +35,7 @@ export class AnimeService {
     return this.http.get('https://cors-anywhere.herokuapp.com/' + url, { responseType: 'text' });
   }
 
-  getEpisodes(id: string): Observable<Object> {
+  getEpisodes(id: string): Observable<any> {
     return this.http.get(environment.apiUrl + this.api + `/${id}` + '/episodes')
   }
 

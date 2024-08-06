@@ -1,19 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AnimeService } from "../../services/anime.services";
 import { AnimeFeatch } from 'src/app/tools';
+
+export interface AnimeEpisodes {
+  episode: string;
+  duration: string;
+  title: { [key: string]: any };
+  aid: number;
+  title_str: string;
+}
 
 @Component({
   selector: 'app-ui-modal',
   templateUrl: './ui-modal.component.html',
   styleUrls: ['./ui-modal.component.css']
 })
-export class UiModalComponent {
+export class UiModalComponent implements OnInit {
   rows!: { [key: string]: string; };
   activeModal: string | null = null;
   currentItem: any = null;
   currentImage: string | null = null;
+  calendarDays: Date[] = [];
 
   newItemForm: FormGroup;
   newUrlForm: FormGroup;
@@ -34,6 +43,36 @@ export class UiModalComponent {
     this.newUrlForm = this.fb.group({
       url: ['', Validators.required]
     });
+  }
+
+  ngOnInit(): void {
+    this.initializeCalendarDays()
+    if (this.activeModal == 'image') {
+      this.loadEpisodes()
+    }
+  }
+
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return today.toDateString() === date.toDateString();
+  }
+
+  initializeCalendarDays() {
+    const today = new Date();
+    for (let i = -3; i <= 3; i++) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      this.calendarDays.push(date);
+    }
+  }
+
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
   openModal(modalName: string, item: any, image: string) {
@@ -95,7 +134,7 @@ export class UiModalComponent {
   }
 
   loadEpisodes() {
-    this.animeService.getEpisodes(this.currentItem.aid).subscribe((response: any) => {
+    this.animeService.getEpisodes(this.currentItem.aid).subscribe((response: AnimeEpisodes[]) => {
       this.episodes = response;
     });
   }

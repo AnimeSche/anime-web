@@ -16,7 +16,7 @@
             "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "baseHref": "/anime-web/",
+            "baseHref": "/anime-web",
             "polyfills": [
               "zone.js"
             ],

@@ -1,0 +1,24 @@
+/* Center the content vertically and horizontally */
+.h-screen {
+    height: 100vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.space-x-4>*+* {
+    margin-left: 1rem;
+}
+
+button {
+    transition: background-color 0.3s;
+}
