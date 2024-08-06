@@ -9,7 +9,7 @@ import { AnimeListComponent } from './pages/anime-list/anime-list.component';
 
 export const routes: Routes = [
   {
-    path: '', component: HomeComponent, title: 'Home', children: [
+    path: 'home', component: HomeComponent, title: 'Home', children: [
       {
         path: 'login',
         component: LoginComponent,
@@ -25,7 +25,11 @@ export const routes: Routes = [
         component: CalendarComponent,
         title: 'Calendar Anime'
       },
-      { path: 'register', component: RegisterComponent, title: 'Register' }
+      {
+        path: 'register',
+        component: RegisterComponent,
+        title: 'Register'
+      }
     ]
   },
   { path: 'anime-list', component: AnimeListComponent, title: 'Anime List' },
