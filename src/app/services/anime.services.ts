@@ -39,7 +39,7 @@ export class AnimeService {
     return this.http.get(environment.apiUrl + this.api + `/${id}` + '/episodes')
   }
 
-  uploadSeason() {
+  uploadSeason(): Observable<any> {
     return this.http.post(environment.apiUrl + this.api + '/season', {})
   }
 }

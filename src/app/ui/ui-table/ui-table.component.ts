@@ -34,12 +34,7 @@ export class UiTableComponent implements OnInit {
   }
 
   fetchData() {
-    this.animeService.getAll(this.currentPage, this.itemsPerPage).subscribe((response: any) => {
-      this.items = response.data;
-      this.totalItems = response.total;
-      this.updatePagination();
-      this.setPage(this.currentPage);
-    });
+    this.setPage(this.currentPage);
   }
 
   updatePagination() {
@@ -47,9 +42,6 @@ export class UiTableComponent implements OnInit {
   }
 
   setPage(page: number) {
-    if (page < 1 || page > this.totalPages.length) {
-      return;
-    }
     this.currentPage = page;
     const startIndex = (page - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;

@@ -2,4 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '~animate.css/animate.min.css'
+@import '~animate.css/animate.min.css';
+
+
+.toast-error {
+    background-color: red !important;
+    color: white !important;
+    border: 2px solid darkred;
+    border-radius: 5px;
+    padding: 10px;
+}

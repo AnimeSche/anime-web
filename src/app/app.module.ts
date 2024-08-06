@@ -54,9 +54,10 @@ import { UiPaginationComponent } from './ui/ui-pagination/ui-pagination.componen
     ReactiveFormsModule,
     FontAwesomeModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-      closeButton: false,
-      timeOut: 6000
+      positionClass: 'toast-top-right',
+      closeButton: true,
+      timeOut: 6000,
+      enableHtml: true, // Allows HTML content in the toast
     }),
     AppRoutingModule
   ],

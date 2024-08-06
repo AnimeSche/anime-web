@@ -4,6 +4,7 @@ import { faList, faEyeSlash, faEye, faBookmark } from "@fortawesome/free-solid-s
 import { faLinesLeaning, faWandMagicSparkles, faPenRuler, faShare, faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { preview_data } from "../table/table.component";
 import { AnimeService } from "../../services/anime.services";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-switcher',
@@ -11,6 +12,7 @@ import { AnimeService } from "../../services/anime.services";
   styleUrls: ['./switcher.component.css']
 })
 export class SwitcherComponent {
+  [x: string]: any;
   currentComponent: string = 'table1';
   allIcon = faLinesLeaning;
   watched = faEyeSlash;
@@ -47,7 +49,7 @@ export class SwitcherComponent {
     title_jp: 'Title Jp', country: 'Country', url: 'Website Irl'
   }
 
-  constructor(private animeService: AnimeService) { }
+  constructor(private animeService: AnimeService, private toastr: ToastrService) { }
 
   fetch() {
     this.animeService.getAll(1, 10).subscribe((response: any) => {
@@ -61,9 +63,24 @@ export class SwitcherComponent {
     this.currentComponent = currentComponent;
   }
 
-  uploadSeson() {
-    this.animeService.uploadSeason().subscribe((response) => { })
+  uploadSeason() {
+    this.animeService.uploadSeason().subscribe(
+      (response: any) => {
+        // Handle successful response
+        this.toastr.success(response.message)
+      },
+      (error) => {
+        if (error.status === 400) {
+          // Handle status code 400 (Bad Request)
+          this.toastr.error(error.message, 'Upload Season', { enableHtml: true });
+        } else {
+          // Handle other errors
+          this.toastr.error(error.message, 'Upload Season', { enableHtml: true });
+        }
+      }
+    );
   }
+
 
   toggleColumnSettings() {
     this.showColumnSettings = !this.showColumnSettings;
