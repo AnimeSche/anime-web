@@ -30,10 +30,11 @@ export class CalendarComponent {
   }
 
   loadEpisodes() {
-    this.animeService.getAll(1, 10).subscribe((response: any) => {
+    this.animeService.getCalendar().subscribe((response: any) => {
       this.episodes = response.data;
     });
   }
+
 
   episodesForDay(day: Date): any[] {
     return this.episodes.filter(episode => new Date(episode.air_date).toDateString() === day.toDateString());
@@ -45,4 +46,5 @@ export class CalendarComponent {
       day.getMonth() === today.getMonth() &&
       day.getFullYear() === today.getFullYear();
   }
+
 }

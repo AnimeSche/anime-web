@@ -170,3 +170,39 @@
         </div>
     </div>
 </div>
+
+
+<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="add-modal-title" role="dialog" aria-modal="true"
+    *ngIf="activeModal === 'bookmark'">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="closeModal()"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">​</span>
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            role="dialog" aria-modal="true" aria-labelledby="add-modal-headline">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="text-lg font-medium leading-6 text-gray-900" id="add-modal-title">Додати bookmark</h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                    (click)="closeModal()">
+                    <fa-icon [icon]="closeModalIcon"></fa-icon>
+                </button>
+            </div>
+            <div class="p-4">
+                <form [formGroup]="bookmarkForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div *ngFor="let key of objectKeys(bookmarkForm.controls)">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">{{ rows[key] }}</label>
+                        <input *ngIf="bookmarkForm.get(key) instanceof FormControl" [formControlName]="key"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                </form>
+                <button (click)="addBookmarkWithItem()"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                    *ngIf="currentItem; else bookmark">Додати</button>
+                <ng-template #bookmark>
+                    <button (click)="addBookmarkItem()"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Додати</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

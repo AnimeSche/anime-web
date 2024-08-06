@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AnimeService } from "../../services/anime.services";
 import { AnimeFeatch } from 'src/app/tools';
+import { Title } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/user.services';
 
 export interface AnimeEpisodes {
   episode: string;
@@ -26,11 +28,12 @@ export class UiModalComponent implements OnInit {
 
   newItemForm: FormGroup;
   newUrlForm: FormGroup;
+  bookmarkForm: FormGroup;
   episodes: any[] = [];
 
   closeModalIcon = faTimes;
 
-  constructor(private fb: FormBuilder, private animeService: AnimeService) {
+  constructor(private fb: FormBuilder, private animeService: AnimeService, private userService: UserService) {
     this.newItemForm = this.fb.group({
       title_original: [''],
       title_en: [''],
@@ -42,6 +45,9 @@ export class UiModalComponent implements OnInit {
 
     this.newUrlForm = this.fb.group({
       url: ['', Validators.required]
+    });
+    this.bookmarkForm = this.fb.group({
+      title: ['', Validators.required]
     });
   }
 
@@ -88,6 +94,12 @@ export class UiModalComponent implements OnInit {
       case 'url':
         this.rows = item
         break;
+      case 'bookmark':
+        this.rows = { 'title': 'Title' }
+        if (item) {
+          this.currentItem = item
+        }
+        break;
       default:
         this.currentItem = item
         break;
@@ -130,6 +142,22 @@ export class UiModalComponent implements OnInit {
   addUrlItem() {
     this.animeService.addFromUrl(this.newUrlForm.value).subscribe((res) => {
       this.closeUrlModal()
+    })
+  }
+  addBookmarkItem() {
+    const data = new FormData()
+    data.append('title', this.bookmarkForm.get('title')?.value)
+    this.userService.addAnime(data).subscribe((res) => {
+      this.closeModal()
+    })
+  }
+
+  addBookmarkWithItem() {
+    const data = new FormData()
+    data.append('title', this.bookmarkForm.get('title')?.value)
+    data.append('anime_id', this.currentItem.aid)
+    this.userService.addAnime(data).subscribe((res) => {
+      this.closeModal()
     })
   }
 

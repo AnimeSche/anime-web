@@ -5,17 +5,24 @@
     <fa-icon [icon]="allIcon" class="text-lg" appBounceOnHover></fa-icon>
     <span>All</span>
   </button>
-  <button (click)="onClick('watched')"
+  <button (click)="onClick('Watched')"
     class="flex flex-col items-center justify-center px-4 py-2 bg-red-500 text-black rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300">
     <fa-icon [icon]="watched" class="text-lg"></fa-icon>
     <span>Watched</span>
   </button>
-  <button (click)="onClick('watching')"
+  <button (click)="onClick(item.title)" *ngFor="let item of userBookmarks"
     class="flex flex-col items-center justify-center px-4 py-2 bg-green-500 text-black rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">
-    <fa-icon [icon]="watching" class="text-lg"></fa-icon>
-    <span>Watching</span>
+    <ng-container *ngIf="item.title != 'Watching'; else book">
+      <fa-icon [icon]="bookmark" class="text-lg"></fa-icon>
+      <span>{{item.title}}</span>
+    </ng-container>
+    <ng-template #book>
+      <fa-icon [icon]="watching" class="text-lg"></fa-icon>
+      <span>{{item.title}}</span>
+    </ng-template>
+
   </button>
-  <button (click)="onClick('custom')"
+  <button (click)="UiModalComponent.openModal('bookmark', [], '')"
     class="flex flex-col items-center justify-center px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-red-400">
     <fa-icon [icon]="bookmark" class="text-lg mb-1" appFadeOnHover></fa-icon>
     <span>Custom</span>
@@ -39,6 +46,7 @@
         (click)="UiModalComponent.openModal('url', row, '')">
         <fa-icon [icon]="url"></fa-icon>
       </button>
+
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="uploadSeason()">
         <fa-icon [icon]="upload"></fa-icon>
       </button>
@@ -60,12 +68,18 @@
     </div>
   </div>
 
-  <app-ui-table [displayedColumns]="displayedColumns" [rows]="row" *ngSwitchCase="'all'"
-    [table_type]="'all'"></app-ui-table>
-  <!-- <app-ui-table [displayedColumns]="displayedColumns" [rows]="row" [table_type]="'watched'"
-    *ngSwitchCase="'watched'"></app-ui-table>
-  <app-ui-table [displayedColumns]="displayedColumns" [rows]="row" [table_type]="'watching'"
-    *ngSwitchCase="'watching'"></app-ui-table> -->
+  <div [ngSwitch]="currentComponent">
+    <app-ui-table *ngSwitchCase="'all'" [displayedColumns]="displayedColumns" [rows]="row" [table_type]="'all'">
+    </app-ui-table>
+    <div *ngSwitchDefault>
+      <ng-container>
+        <app-ui-table *ngIf="currentComponent in userBookmarks" [displayedColumns]="displayedColumns" [rows]="row"
+          [table_type]="'watched'" [items]="data">
+        </app-ui-table>
+      </ng-container>
+    </div>
+  </div>
+
   <!-- Додайте інші компоненти за потребою -->
 </ng-container>
 

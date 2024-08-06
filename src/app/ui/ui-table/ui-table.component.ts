@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faPenToSquare, faTrash, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrash, faEye, faEyeSlash, faPenRuler } from "@fortawesome/free-solid-svg-icons";
 import { AnimeService } from 'src/app/services/anime.services';
+import { UserService } from 'src/app/services/user.services';
 
 @Component({
   selector: 'app-ui-table',
@@ -8,6 +9,7 @@ import { AnimeService } from 'src/app/services/anime.services';
   styleUrls: ['./ui-table.component.css']
 })
 export class UiTableComponent implements OnInit {
+  @Input()
   items!: any[];
   @Input()
   table_type!: string
@@ -22,8 +24,12 @@ export class UiTableComponent implements OnInit {
   itemsPerPage: number = 10;
   totalPages: number[] = [];
   totalItems: number = 0
+  watchingIcon = faEye;
+  watchedIcon = faEyeSlash;
+  write = faPenRuler;
+  watchingActive: boolean = true;
 
-  constructor(private animeService: AnimeService) { }
+  constructor(private animeService: AnimeService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadData()
@@ -64,6 +70,13 @@ export class UiTableComponent implements OnInit {
 
   onPageChange(page: number) {
     this.setPage(page);
+  }
+
+  watching(item: any) {
+    const data = new FormData()
+    data.append('title', 'Watching')
+    data.append('anime_id', item.aid)
+    this.userService.addAnime(data).subscribe(() => { })
   }
 
   objectKeys = Object.keys;

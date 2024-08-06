@@ -49,6 +49,20 @@
                             (click)="deleteItem(item)">
                             <fa-icon [icon]="deleteIcon" class="text-lg text-white"></fa-icon>
                         </button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                            *ngIf="watchingActive; else watched" (click)="watching(item)">
+                            <fa-icon [icon]="watchingIcon" class="text-lg text-white"></fa-icon>
+                        </button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                            (click)="UiModalComponent.openModal('bookmark', item, '')">
+                            <fa-icon [icon]="write" class="text-lg text-white"></fa-icon>
+                        </button>
+                        <ng-template #watched>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                (click)="watching(item)">
+                                <fa-icon [icon]="watchedIcon" class="text-lg text-white"></fa-icon>
+                            </button>
+                        </ng-template>
                     </div>
                 </td>
             </tr>

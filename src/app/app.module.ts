@@ -31,6 +31,7 @@ import { UiPaginationComponent } from './ui/ui-pagination/ui-pagination.componen
 import { DateFilterPipe } from './pipes/dateFilterPipe.pipe';
 import { AnimeListComponent } from './pages/anime-list/anime-list.component';
 import { CalendarComponent } from './pages/calendar/calendar.component'
+import { UserService } from './services/user.services';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { CalendarComponent } from './pages/calendar/calendar.component'
     SessionService,
     LoginService,
     AnimeService,
-    ToastrService
+    ToastrService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

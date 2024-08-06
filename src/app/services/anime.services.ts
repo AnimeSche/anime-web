@@ -42,4 +42,8 @@ export class AnimeService {
   uploadSeason(): Observable<any> {
     return this.http.post(environment.apiUrl + this.api + '/season', {})
   }
+
+  getCalendar() {
+    return this.http.get(environment.apiUrl + '/calendar' + this.api)
+  }
 }

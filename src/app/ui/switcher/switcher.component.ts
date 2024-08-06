@@ -5,13 +5,14 @@ import { faLinesLeaning, faWandMagicSparkles, faPenRuler, faShare, faCloudArrowD
 import { preview_data } from "../table/table.component";
 import { AnimeService } from "../../services/anime.services";
 import { ToastrService } from 'ngx-toastr';
+import { UserBookmarks, UserService } from 'src/app/services/user.services';
 
 @Component({
   selector: 'app-switcher',
   templateUrl: './switcher.component.html',
   styleUrls: ['./switcher.component.css']
 })
-export class SwitcherComponent {
+export class SwitcherComponent implements OnInit {
   [x: string]: any;
   currentComponent: string = 'table1';
   allIcon = faLinesLeaning;
@@ -22,6 +23,7 @@ export class SwitcherComponent {
   url = faShare;
   upload = faCloudArrowDown;
   totalItems!: number
+  userBookmarks: UserBookmarks[] = []
 
   bookmark = faWandMagicSparkles;
 
@@ -29,19 +31,7 @@ export class SwitcherComponent {
 
   data: any[] = [];
   showColumnSettings: boolean = false;
-  displayedColumns: { [key: string]: boolean } = {
-    'title_en': true,
-    'title_ru_ua': true,
-    'title_original': true,
-    'rating': true,
-    'release_date': true,
-    'country': false,
-    'episodes': true,
-    'url': false,
-    'image': false,
-    'description': false,
-    'tags': true
-  };
+  displayedColumns: { [key: string]: boolean } = {}
   row: { [key: string]: string } = {
     title_en: 'Title En',
     title_ru_ua: 'Title Ru / UA',
@@ -49,18 +39,40 @@ export class SwitcherComponent {
     title_jp: 'Title Jp', country: 'Country', url: 'Website Irl'
   }
 
-  constructor(private animeService: AnimeService, private toastr: ToastrService) { }
+  constructor(private animeService: AnimeService, private toastr: ToastrService, private user: UserService) { }
 
   fetch() {
-    this.animeService.getAll(1, 10).subscribe((response: any) => {
-      this.data = response.data || [];
-      this.totalItems = response.total;
+    this.user.getAll().subscribe((data) => {
+      this.userBookmarks = data
     })
+  }
+
+  ngOnInit(): void {
+    this.displayedColumns = {
+      'title_en': true,
+      'title_ru_ua': true,
+      'title_original': false,
+      'rating': true,
+      'release_date': true,
+      'country': false,
+      'episodes': true,
+      'url': false,
+      'image': false,
+      'description': false,
+      'tags': true
+    };
+    this.fetch()
   }
 
 
   onClick(currentComponent: string) {
     this.currentComponent = currentComponent;
+    if (currentComponent != 'all') {
+      this.user.getByTitle(currentComponent).subscribe((resp: any) => {
+        this.data = resp
+      })
+    }
+
   }
 
   uploadSeason() {

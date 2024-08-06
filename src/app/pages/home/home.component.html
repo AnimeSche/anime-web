@@ -2,12 +2,14 @@
 <div class="flex justify-center items-center">
     <div class="space-x-4">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-2xl"
-            routerLink="anime-list" routerLinkActive="active">
+            (click)="goToAnimeList()">
             <fa-icon [icon]="anime_list_icon"></fa-icon>
         </button>
         <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg text-2xl"
-            routerLink="calendar" routerLinkActive="active">
+            (click)="goToCalendar()">
             <fa-icon [icon]="calendar_icon"></fa-icon>
         </button>
     </div>
 </div>
+<app-calendar *ngIf="calendarActivate"></app-calendar>
+<app-anime-list *ngIf="animeListActivate"></app-anime-list>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { preview_data } from "../../ui/table/table.component";
-import { faTable, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faTable, faCalendar, faL } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -16,13 +16,17 @@ export class HomeComponent {
   anime_list_icon = faTable;
   calendar_icon = faCalendar;
   preview = preview_data;
+  animeListActivate = false;
+  calendarActivate = false;
 
   goToAnimeList() {
-    this.router.navigate(['/anime-list']);
+    this.animeListActivate = !this.animeListActivate;
+    this.calendarActivate = false;
   }
 
   goToCalendar() {
-    this.router.navigateByUrl('/home/calendar');
+    this.calendarActivate = !this.calendarActivate;
+    this.animeListActivate = false;
   }
 
 }

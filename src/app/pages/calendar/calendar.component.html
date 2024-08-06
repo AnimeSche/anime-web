@@ -6,7 +6,7 @@
                 'dd MMM' }}</div>
             <ul class="mt-2 space-y-1">
                 <li *ngFor="let episode of episodesForDay(day)" class="text-xs flex flex-col items-center">
-                    <img [src]="'data:image/jpg;base64,' + episode.anime.image" alt="{{ episode.anime.title }}"
+                    <img [src]="'data:image/jpg;base64,' + episode.anime.image" alt="{{ episode.anime.title_en }}"
                         class="w-8 h-8 rounded-full mb-1">
                     <span class="text-gray-800 text-xs">{{ episode.title }}</span>
                     <span class="text-gray-600 text-xs">{{ episode.air_date | date: 'shortTime' }}</span>
