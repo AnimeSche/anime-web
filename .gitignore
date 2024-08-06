@@ -2,3 +2,10 @@
 .idea
 .vs
 .vscode
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+.angular/
+.vs/*
