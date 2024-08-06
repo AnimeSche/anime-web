@@ -1,7 +1,0 @@
-<div class="flex justify-center mt-4">
-    <button *ngFor="let page of totalPages; let i = index" (click)="setPage(i + 1)"
-        [class.bg-blue-500]="currentPage === i + 1" [class.text-white]="currentPage === i + 1"
-        [class.text-gray-500]="currentPage !== i + 1" class="mx-1 px-3 py-1 border rounded">
-        {{ i + 1 }}
-    </button>
-</div>
